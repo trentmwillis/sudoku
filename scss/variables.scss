@@ -1,0 +1,12 @@
+// Sizes
+$borderSpacing: 8px;
+$cellSize: 48px;
+$sectionSize: $cellSize * 3 + $borderSpacing * 4;
+$tableSize: $sectionSize * 3 + $borderSpacing * 4;
+
+// Colors
+$color-white: #FFF9EF;
+$color-blue-light: #C1D1DE;
+$color-blue: #7096AD;
+$color-blue-dark: #00303E;
+$color-red: #EC4911;

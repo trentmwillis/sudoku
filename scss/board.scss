@@ -1,16 +1,36 @@
 #number-grid {
     position: absolute;
-    top: 0;
+    top: 9px;
     left: 50%;
-    max-width: $tableSize;
-    max-height: $tableSize;
+    width: $tableSize;
+    height: $tableSize;
     margin-left: $tableSize / -2;
     background-color: $color-blue;
+    border-radius: 4px;
+    opacity: .7;
+}
+
+.number-cell {
+    width: $cellSize;
+    height: $cellSize;
+    background-color: $color-blue-light;
+    border-radius: 2px;
+    color: $color-blue-dark;
+    text-align: center;
+
+    &:hover {
+        background-color: $color-white;
+        cursor: pointer;
+    }
+
+    &.disabled {
+        background-color: $color-blue;
+    }
 }
 
 #board {
-    max-width: $tableSize;
-    max-height: $tableSize;
+    width: $tableSize;
+    height: $tableSize;
     margin: 0 auto;
     background-color: $color-blue-dark;
     border-radius: 4px;
@@ -29,6 +49,8 @@
 }
 
 .cell {
+    width: $cellSize;
+    height: $cellSize;
     background-color: $color-blue-light;
     border-radius: 2px;
     color: $color-blue-dark;
