@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Sudoku</title>
+
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="build/css/styles.css">
+
+    </head>
+
+    <body>
+
+        <h1 class="title">Sudoku</h1>
+
+        <div id="app-wrapper">
+
+            <table id="number-grid">
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                </tr>
+            </table>
+
+            <table id="board">
+
+                <tr id="row-one">
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell">5</td>
+                                <td class="cell">3</td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell">6</td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell">9</td>
+                                <td class="cell">8</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr id="row-two">
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr id="row-three">
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="board-section">
+                        <table id="section-inner">
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                                <td class="cell"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        
+    </body>
+
+</html>
