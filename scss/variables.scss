@@ -1,8 +1,13 @@
 // Sizes
-$borderSpacing: 8px;
-$cellSize: 48px;
-$sectionSize: $cellSize * 3 + $borderSpacing * 4;
-$tableSize: $sectionSize * 3 + $borderSpacing * 4;
+$border-spacing: 8px;
+$size-cell: 48px;
+$size-section: $size-cell * 3 + $border-spacing * 4;
+$size-table: $size-section * 3;
+
+$border-spacing-mobile: 4px;
+$size-cell-mobile: 32px;
+$size-section-mobile: $size-cell-mobile * 3 + $border-spacing-mobile * 4;
+$size-table-mobile: $size-section-mobile * 3;
 
 // Colors
 $color-white: #FFF9EF;

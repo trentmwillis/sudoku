@@ -1,22 +1,33 @@
 #number-grid {
     position: absolute;
-    top: 9px;
+    top: 0px;
     left: 50%;
-    width: $tableSize;
-    height: $tableSize;
-    margin-left: $tableSize / -2;
-    background-color: $color-blue;
+    width: $size-table;
+    height: $size-table;
+    margin-left: $size-table / -2;
+    background-color: $color-blue-dark;
     border-radius: 4px;
-    opacity: .7;
+    border-collapse: separate;
+    border-spacing: $border-spacing;
+}
+
+#close-number-grid {
+    position: absolute;
+    top: -1.5em;
+    right: 1.5em;
+}
+
+#clear-cell {
+    position: absolute;
+    top: -1.5em;
+    left: 1.5em;
 }
 
 .number-cell {
-    width: $cellSize;
-    height: $cellSize;
     background-color: $color-blue-light;
-    border-radius: 2px;
     color: $color-blue-dark;
     text-align: center;
+    font-size: 2em;
 
     &:hover {
         background-color: $color-white;
@@ -24,40 +35,63 @@
     }
 
     &.disabled {
-        background-color: $color-blue;
+        background-color: $color-blue-dark;
+        color: $color-white;
     }
 }
 
 #board {
-    width: $tableSize;
-    height: $tableSize;
     margin: 0 auto;
-    background-color: $color-blue-dark;
     border-radius: 4px;
 }
 
 .board-section {
-    width: $sectionSize;
-    height: $sectionSize;
     padding: 0;
-    background-color: $color-blue;
     border-radius: 4px;
 }
 
-.section-inner {
-    
+.board-section-inner {
+    border-collapse: separate;
+    border-spacing: $border-spacing;
 }
 
 .cell {
-    width: $cellSize;
-    height: $cellSize;
+    width: $size-cell;
+    height: $size-cell;
     background-color: $color-blue-light;
     border-radius: 2px;
     color: $color-blue-dark;
     text-align: center;
 
     &:hover {
-        background-color: $color-white;
+        background-color: $color-blue;
         cursor: pointer;
+    }
+
+    &.starting-cell {
+        background-color: $color-blue-dark;
+        color: $color-white;
+
+        &:hover {
+            cursor: auto;
+        }
+    }
+}
+
+@media screen and (max-width: $size-table) {
+    .board-section-inner {
+        border-spacing: $border-spacing-mobile;
+    }
+
+    .cell {
+        width: $size-cell-mobile;
+        height: $size-cell-mobile;
+    }
+
+    #number-grid {
+        width: $size-table-mobile;
+        height: $size-table-mobile;
+        margin-left: $size-table-mobile / -2;
+        border-spacing: $border-spacing-mobile;
     }
 }
