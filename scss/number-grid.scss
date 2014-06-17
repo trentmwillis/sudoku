@@ -1,0 +1,73 @@
+#number-grid {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: $size-table;
+    height: $size-table;
+    margin-left: $size-table / -2;
+    background-color: $color-blue-dark;
+    border-collapse: separate;
+    border-radius: 4px;
+    border-spacing: $border-spacing;
+
+    .tab {
+        position: absolute;
+        top: -1.5em;
+        height: 1.5em;
+        background-color: $color-blue-dark;
+        border-radius: 4px 4px 0 0;
+        color: white;
+        @include transition(background-color, 0.3s);
+
+        &:hover {
+            background-color: $color-blue;
+            cursor: pointer;
+        }
+    }
+
+    .number-cell {
+        background-color: $color-blue-light;
+        color: $color-blue-dark;
+        font-size: 2em;
+        text-align: center;
+        @include transition(background-color, 0.3s);
+
+        &:hover {
+            background-color: $color-white;
+            cursor: pointer;
+        }
+
+        &.disabled {
+            background-color: $color-blue-dark;
+            color: $color-white;
+        }
+    }
+}
+
+#close-number-grid {
+    right: 1.5em;
+    width: 2em;
+}
+
+#clear-cell {
+    left: 1.5em;
+    width: 4em;
+}
+
+@media screen and (max-width: $size-table) {
+    #number-grid {
+        width: $size-table-mobile;
+        height: $size-table-mobile;
+        margin-left: $size-table-mobile / -2;
+        border-spacing: $border-spacing-mobile;
+    }
+}
+
+@media screen and (max-width: $size-table-mobile) {
+    #number-grid {
+        width: $size-table-small;
+        height: $size-table-small;
+        margin-left: $size-table-small / -2;
+        border-spacing: $border-spacing-small;
+    }
+}

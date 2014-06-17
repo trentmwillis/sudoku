@@ -9,6 +9,11 @@ $size-cell-mobile: 32px;
 $size-section-mobile: $size-cell-mobile * 3 + $border-spacing-mobile * 4;
 $size-table-mobile: $size-section-mobile * 3;
 
+$border-spacing-small: 3px;
+$size-cell-small: 28px;
+$size-section-small: $size-cell-small * 3 + $border-spacing-small * 4;
+$size-table-small: $size-section-small * 3;
+
 // Colors
 $color-white: #FFF9EF;
 $color-blue-light: #C1D1DE;

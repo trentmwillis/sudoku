@@ -1,97 +1,64 @@
-#number-grid {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    width: $size-table;
-    height: $size-table;
-    margin-left: $size-table / -2;
-    background-color: $color-blue-dark;
-    border-radius: 4px;
-    border-collapse: separate;
-    border-spacing: $border-spacing;
-}
-
-#close-number-grid {
-    position: absolute;
-    top: -1.5em;
-    right: 1.5em;
-}
-
-#clear-cell {
-    position: absolute;
-    top: -1.5em;
-    left: 1.5em;
-}
-
-.number-cell {
-    background-color: $color-blue-light;
-    color: $color-blue-dark;
-    text-align: center;
-    font-size: 2em;
-
-    &:hover {
-        background-color: $color-white;
-        cursor: pointer;
-    }
-
-    &.disabled {
-        background-color: $color-blue-dark;
-        color: $color-white;
-    }
-}
-
 #board {
     margin: 0 auto;
     border-radius: 4px;
-}
 
-.board-section {
-    padding: 0;
-    border-radius: 4px;
-}
-
-.board-section-inner {
-    border-collapse: separate;
-    border-spacing: $border-spacing;
-}
-
-.cell {
-    width: $size-cell;
-    height: $size-cell;
-    background-color: $color-blue-light;
-    border-radius: 2px;
-    color: $color-blue-dark;
-    text-align: center;
-
-    &:hover {
-        background-color: $color-blue;
-        cursor: pointer;
+    .board-section {
+        padding: 0;
+        border-radius: 4px;
     }
 
-    &.starting-cell {
-        background-color: $color-blue-dark;
-        color: $color-white;
+    .board-section-inner {
+        border-collapse: separate;
+        border-spacing: $border-spacing;
+    }
+
+    .cell {
+        width: $size-cell;
+        height: $size-cell;
+        background-color: $color-blue-light;
+        border-radius: 2px;
+        color: $color-blue-dark;
+        text-align: center;
+        @include transition(background-color, 0.25s);
 
         &:hover {
-            cursor: auto;
+            background-color: $color-blue;
+            cursor: pointer;
+        }
+
+        &.starting-cell {
+            background-color: $color-blue-dark;
+            color: $color-white;
+
+            &:hover {
+                cursor: auto;
+            }
         }
     }
 }
 
 @media screen and (max-width: $size-table) {
-    .board-section-inner {
-        border-spacing: $border-spacing-mobile;
-    }
+    #board {
+        .board-section-inner {
+            border-spacing: $border-spacing-mobile;
+        }
 
-    .cell {
-        width: $size-cell-mobile;
-        height: $size-cell-mobile;
+        .cell {
+            width: $size-cell-mobile;
+            height: $size-cell-mobile;
+        }
     }
+}
 
-    #number-grid {
-        width: $size-table-mobile;
-        height: $size-table-mobile;
-        margin-left: $size-table-mobile / -2;
-        border-spacing: $border-spacing-mobile;
+@media screen and (max-width: $size-table-mobile) {
+    #board {
+        .board-section-inner {
+            border-spacing: $border-spacing-small;
+        }
+
+        .cell {
+            width: $size-cell-small;
+            height: $size-cell-small;
+        }
     }
 }
