@@ -2,6 +2,36 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
 
 (function() {
 
+    Sudoku.Templates = {
+        templates: {},
+
+        loadTemplates: function(names, callback) {
+            var that = this;
+
+            var loadTemplate = function(index) {
+                var name = names[index];
+                console.log(name);
+                console.log("test");
+                $.get('templates/' + name + '.mustache', function(data) {
+                    that.templates[name] = data;
+                    index++;
+                    console.log("test");
+                    if (index < names.length) {
+                        loadTemplate(index);
+                    } else if (callback) {
+                        callback();
+                    }
+                });
+            }
+
+            loadTemplate(0);
+        },
+
+        getTemplate: function (name) {
+            return this.templates[name];
+        }
+    };
+
     var $cells = $('.cell'),
         $lastCellClicked,
         $numberGrid = $('#number-grid'),
@@ -78,6 +108,25 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
         closeNumberGrid();
         Sudoku.validate();
     });
+
+    Sudoku.renderBoard = function() {
+        var $board =$('#board'),
+            numRowGroups = 3,
+            numSections = 3;
+
+        Sudoku.Templates.loadTemplates(['board-row-group', 'board-section'], function() {
+            for (var i=1; i<=numRowGroups; i++) {
+                var row = Sudoku.Templates.getTemplate('board-row-group');
+                
+                $board.append(Mustache.render(row, {id: i}));
+
+                for (var j=1; j<=numSections; j++) {
+                    var section = Sudoku.Templates.getTemplate('board-section');
+                    $board.children('#row-group-' + i).append(Mustache.render(section, {rows: [1, 2, 3]}));
+                }
+            }
+        })
+    };
 
     Sudoku.validate = function() {
         var valid = true;
