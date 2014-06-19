@@ -1,40 +1,10 @@
 var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
 
-(function() {
-
-    Sudoku.Templates = {
-        templates: {},
-
-        loadTemplates: function(names, callback) {
-            var that = this;
-
-            var loadTemplate = function(index) {
-                var name = names[index];
-                $.get('templates/' + name + '.mustache', function(data) {
-                    that.templates[name] = data;
-                    index++;
-                    if (index < names.length) {
-                        loadTemplate(index);
-                    } else if (callback) {
-                        callback();
-                    }
-                });
-            }
-
-            loadTemplate(0);
-        },
-
-        getTemplate: function (name) {
-            return this.templates[name];
-        }
-    };
-
-    var $cells = $('.cell'),
-        $lastCellClicked,
-        $numberGrid = $('#number-grid'),
-        $numberCells = $('.number-cell'),
-        $closeNumberGrid = $numberGrid.find('#close-number-grid'),
-        $clearCell = $numberGrid.find('#clear-cell'),
+$(document).ready(function() {
+    // Private variables and functions
+    var $numberGrid = $('#number-grid'),
+        $gameBoard = $('#board'),
+        $lastCellClicked, $numberCells, $cells,
 
         closeNumberGrid = function() {
             $numberGrid.addClass('hide');
@@ -76,52 +46,15 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
             openNumberGrid();
         };
 
-    // Setup each cell
-    $cells.forEach(function(cell) {
-        var $cell = $(cell);
+    // First function to get called that runs everything needed
+    Sudoku.init = function() {
+        Sudoku.renderGameBoard();
+        Sudoku.renderNumberGrid();
+    };
 
-        if ($cell.text()) {
-            $cell.addClass('starting-cell');
-        } else {
-            $cell.click(onCellClicked);
-        }
-    });
-
-    $closeNumberGrid.click(closeNumberGrid);
-
-    $clearCell.click(function() {
-        $lastCellClicked.text('');
-        closeNumberGrid();
-    });
-
-    $numberCells.click(function(ev) {
-        var $cell = $(ev.currentTarget);
-
-        if ($cell.hasClass('disabled')) {
-            return;
-        }
-
-        $lastCellClicked.text($cell.text());
-        closeNumberGrid();
-        Sudoku.validate();
-    });
-
-    Sudoku.generateBoard = function(options) {
-        if (options.useDefault) {
-            return ['5','3','','','7','','','','',
-                    '6','','','1','9','5','','','',
-                    '','9','8','','','','','6','',
-                    '8','','','','6','','','','3',
-                    '4','','','8','','3','','','1',
-                    '7','','','','2','','','','6',
-                    '','6','','','','','2','8','',
-                    '','','','4','1','9','','','5',
-                    '','','','','8','','','7','9'];
-        }
-    }
-
-    Sudoku.renderBoard = function() {
-        var $board =$('#board'),
+    // Renders the game board and then calls the setup function
+    Sudoku.renderGameBoard = function() {
+        var $board = $('#board'),
             numRowGroups = 3,
             numSections = 3;
 
@@ -137,7 +70,7 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
                     var section = Sudoku.Templates.getTemplate('board-section'),
                         start = i*27 + j*3,
                         cells = boardNums.slice(start, start+3);
-                        cells = Array.concat(cells, boardNums.slice(start + 9, start + 12), boardNums.slice(start + 18, start + 21));
+                        cells = cells.concat(boardNums.slice(start + 9, start + 12), boardNums.slice(start + 18, start + 21));
 
                     $board.children('#row-group-' + i).append(Mustache.render(section, {
                         rows: [i*3+1, i*3+2, i*3+3],
@@ -145,9 +78,108 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
                     }));
                 }
             }
-        })
+
+            Sudoku.setupGameBoard();
+        });
     };
 
+    // Renders the number grid for user selections
+    Sudoku.renderNumberGrid = function() {
+        Sudoku.Templates.loadTemplates(['number-grid'], function() {
+            var grid = Sudoku.Templates.getTemplate('number-grid');
+            console.log(grid);
+            $numberGrid.append(grid);
+            Sudoku.setupNumberGrid();
+        });
+    };
+
+    // Sub-object to handle template-related stuff
+    Sudoku.Templates = {
+        templates: {},
+
+        loadTemplates: function(names, callback) {
+            var that = this;
+
+            var loadTemplate = function(index) {
+                var name = names[index];
+                $.get('templates/' + name + '.mustache', function(template) {
+                    that.templates[name] = template;
+                    index++;
+                    if (index < names.length) {
+                        loadTemplate(index);
+                    } else if (callback && $.isFunction(callback)) {
+                        callback();
+                    }
+                });
+            }
+
+            loadTemplate(0);
+        },
+
+        getTemplate: function (name) {
+            return this.templates[name];
+        }
+    };
+
+    // Setup all the event handlers for the board
+    Sudoku.setupGameBoard = function() {
+        $cells = $('.cell');
+
+        // Setup each cell
+        $cells.forEach(function(cell) {
+            var $cell = $(cell);
+
+            if ($cell.text()) {
+                $cell.addClass('starting-cell');
+            } else {
+                $cell.click(onCellClicked);
+            }
+        });
+    };
+
+    // Setup all the event handlers for the number grid
+    Sudoku.setupNumberGrid = function() {
+        var $closeNumberGrid = $numberGrid.find('#close-number-grid'),
+            $clearCell = $numberGrid.find('#clear-cell');
+
+        $numberCells = $('.number-cell');
+
+        $numberCells.click(function(ev) {
+            var $cell = $(ev.currentTarget);
+
+            if ($cell.hasClass('disabled')) {
+                return;
+            }
+
+            $lastCellClicked.text($cell.text());
+            closeNumberGrid();
+            Sudoku.validate();
+        });
+
+        $closeNumberGrid.click(closeNumberGrid);
+
+        $clearCell.click(function() {
+            $lastCellClicked.text('');
+            closeNumberGrid();
+        });
+    }
+
+    // TODO: Generate new game boards
+    Sudoku.generateBoard = function(options) {
+        if (options.useDefault) {
+            return ['5','3','','','7','','','','',
+                    '6','','','1','9','5','','','',
+                    '','9','8','','','','','6','',
+                    '8','','','','6','','','','3',
+                    '4','','','8','','3','','','1',
+                    '7','','','','2','','','','6',
+                    '','6','','','','','2','8','',
+                    '','','','4','1','9','','','5',
+                    '','','','','8','','','7','9'];
+        }
+    };
+
+    // Function to check if puzzle is solved
     Sudoku.validate = function() {
         var valid = true;
 
@@ -158,8 +190,10 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
         });
 
         if (valid) {
-            alert("Yay!");
+            alert("Congratulations! You have succesfully completed the puzzle!");
         }
     };
 
+    // Start everything!
+    Sudoku.init();
 })();

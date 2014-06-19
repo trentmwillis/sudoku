@@ -3,11 +3,14 @@
 
     <head>
 
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+
         <title>Sudoku</title>
 
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet">
-        <link rel="stylesheet" href="build/css/styles.css">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet">
+        <link href="build/css/styles.css" rel="stylesheet">
 
     </head>
 
@@ -18,39 +21,22 @@
         <div id="app-wrapper">
 
             <table id="number-grid" class="hide">
+
                 <caption>
                     <span id="clear-cell" class="tab">clear</span>
                     <span id="close-number-grid" class="tab">x</span>
                 </caption>
-                <tr>
-                    <td id="one" class="number-cell">1</td>
-                    <td id="two" class="number-cell">2</td>
-                    <td id="three" class="number-cell">3</td>
-                </tr>
-                <tr>
-                    <td id="four" class="number-cell">4</td>
-                    <td id="five" class="number-cell">5</td>
-                    <td id="six" class="number-cell">6</td>
-                </tr>
-                <tr>
-                    <td id="seven" class="number-cell">7</td>
-                    <td id="eight" class="number-cell">8</td>
-                    <td id="nine" class="number-cell">9</td>
-                </tr>
+                
             </table>
 
             <table id="board"></table>
 
         </div>
 
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
         <script src="js/app.js"></script>
-        <script>
-        $(document).ready(function() {
-            Sudoku.renderBoard();
-        });
-        </script>
+
     </body>
 
 </html>
