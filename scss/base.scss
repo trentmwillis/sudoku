@@ -17,6 +17,10 @@ table {
     border-collapse: collapse;
 }
 
+#app-wrapper {
+    position: relative;
+}
+
 .hide {
     display: none !important;
 }
@@ -24,8 +28,4 @@ table {
 .title {
     font-size: 3em;
     text-align: center;
-}
-
-#app-wrapper {
-    position: relative;
 }

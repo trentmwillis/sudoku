@@ -3,6 +3,14 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        uglify: {
+            app: {
+                files: {
+                    'build/js/app.min.js': ['js/app.js']
+                }
+            }
+        },
+
         sass: {
             dist: {
                 options: {
@@ -13,7 +21,7 @@ module.exports = function(grunt) {
                     cwd: 'scss',
                     src: ['styles.scss'],
                     dest: 'build/css',
-                    ext: '.css'
+                    ext: '.min.css'
                 }]
             }
         },
@@ -26,10 +34,11 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('startWatch', ['watch']);
-    grunt.registerTask('default', ['sass']);
+    grunt.registerTask('default', ['sass', 'uglify']);
 
 };

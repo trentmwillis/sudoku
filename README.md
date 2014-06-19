@@ -2,6 +2,16 @@
 
 A simple sudoku web-app made to be awesome. This application is based on Mustache for templating, Zepto for JavaScript utilities/DOM manipulation, and Sass for CSS preprocessing. Checkout http://www.trentwillis.net/sudoku to see it in action.
 
+## Building Yourself
+
+To get this thing up and running on your own, there are only a few steps:
+
+1. Clone the repo
+2. Run `npm install`
+3. Start a server (I like to use `php -S localhost:3000`)
+4. Open the server in your browser
+5. Finished!
+
 ## Application Design
 In my mind, the simplest way to break down the design of this application is into the large "language" components.
 
@@ -20,7 +30,15 @@ Technically, the Sass/CSS is very straightforward. The core file is `styles.scss
 I think this setup allows for and promotes modular styling and lets the stylesheets scale nicely with the application.
 
 ### JavaScript
+The core of the application. Inside `app.js` you'll find everything to handle the rendering of the application down to winning the game. The structure of the file is set up to keep everything bundled inside the `Sudoku` variable. Any functions that may potentially need to be called from outside the closure (e.g., `renderGameBoard` or `init`) are exported by adding them to the `Sudoku` object.
 
+The app is structured this way to keep everything contained; no need to have global variables running amuck. Additionally, it allows properties like the last cell that was clicked to be stored but not accessible outside the closure.
+
+To talk a bit more specific, I'll explain what happens when `init()` is called: two functions fire, one to render the game board and another to render the input grid. Each function calls methods within the `Sudoku.Templates` object which sets off AJAX requests for the templates needed to render. Mustache.js was chosen for the templating to allow for client-side templating, with the intention of being able to have new boards generated without additional requests later.
+
+Once the templates for the game board are fetched, a call is made to generate a new board (which unfortunately there was not enough time to complete, so it just returns a default). The board is then broken up and the info passed into the templates to be rendered in pieces.
+
+In either case, when the rendering is finished, a `setup` function is then called which binds all the needed event handlers to objects. These are primarily `click` events that drive the gameplay.
 
 ### Miscellaneous
 I chose to use a small set of tools from Node.js. The main tool used was Grunt.js, with plugins for Uglify, Watch, and Sass. This allowed me to easily watch my `.scss` files for changes and build them without thinking during development as well as quickly minify my scripts for deployment when I went to test on a server.
