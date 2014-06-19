@@ -10,12 +10,9 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
 
             var loadTemplate = function(index) {
                 var name = names[index];
-                console.log(name);
-                console.log("test");
                 $.get('templates/' + name + '.mustache', function(data) {
                     that.templates[name] = data;
                     index++;
-                    console.log("test");
                     if (index < names.length) {
                         loadTemplate(index);
                     } else if (callback) {
@@ -109,20 +106,43 @@ var Sudoku = typeof Sudoku != 'undefined' ? Sudoku : {};
         Sudoku.validate();
     });
 
+    Sudoku.generateBoard = function(options) {
+        if (options.useDefault) {
+            return ['5','3','','','7','','','','',
+                    '6','','','1','9','5','','','',
+                    '','9','8','','','','','6','',
+                    '8','','','','6','','','','3',
+                    '4','','','8','','3','','','1',
+                    '7','','','','2','','','','6',
+                    '','6','','','','','2','8','',
+                    '','','','4','1','9','','','5',
+                    '','','','','8','','','7','9'];
+        }
+    }
+
     Sudoku.renderBoard = function() {
         var $board =$('#board'),
             numRowGroups = 3,
             numSections = 3;
 
         Sudoku.Templates.loadTemplates(['board-row-group', 'board-section'], function() {
-            for (var i=1; i<=numRowGroups; i++) {
+            var boardNums = Sudoku.generateBoard({useDefault: true});
+
+            for (var i=0; i<numRowGroups; i++) {
                 var row = Sudoku.Templates.getTemplate('board-row-group');
-                
+
                 $board.append(Mustache.render(row, {id: i}));
 
-                for (var j=1; j<=numSections; j++) {
-                    var section = Sudoku.Templates.getTemplate('board-section');
-                    $board.children('#row-group-' + i).append(Mustache.render(section, {rows: [1, 2, 3]}));
+                for (var j=0; j<numSections; j++) {
+                    var section = Sudoku.Templates.getTemplate('board-section'),
+                        start = i*27 + j*3,
+                        cells = boardNums.slice(start, start+3);
+                        cells = Array.concat(cells, boardNums.slice(start + 9, start + 12), boardNums.slice(start + 18, start + 21));
+
+                    $board.children('#row-group-' + i).append(Mustache.render(section, {
+                        rows: [i*3+1, i*3+2, i*3+3],
+                        cells: cells
+                    }));
                 }
             }
         })
