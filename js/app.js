@@ -87,7 +87,6 @@ $(document).ready(function() {
     Sudoku.renderNumberGrid = function() {
         Sudoku.Templates.loadTemplates(['number-grid'], function() {
             var grid = Sudoku.Templates.getTemplate('number-grid');
-            console.log(grid);
             $numberGrid.append(grid);
             Sudoku.setupNumberGrid();
         });
@@ -196,4 +195,4 @@ $(document).ready(function() {
 
     // Start everything!
     Sudoku.init();
-})();
+});
